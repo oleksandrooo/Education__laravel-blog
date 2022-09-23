@@ -12,12 +12,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::controller(\App\Http\Controllers\PostController::class)->group(function () {
+Route::controller(\App\Http\Controllers\HomeController::class)->group(function () {
     Route::get('/', 'index');
 });
 Route::prefix('admin')->middleware(['auth', 'admin', 'verified'])->group(function () {
     Route::controller(\App\Http\Controllers\AdminController::class)->group(function () {
-        Route::get('/', 'index');
+        Route::get('/', 'index')->name('admin.main.index');
     });
     Route::prefix('categories')->group(function () {
         Route::controller(\App\Http\Controllers\CategoryController::class)->group(function () {
@@ -71,3 +71,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Auth::routes(['verify' => true]);
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
