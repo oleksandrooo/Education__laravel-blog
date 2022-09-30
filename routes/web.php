@@ -73,20 +73,18 @@ Route::prefix('personal')->middleware(['auth', 'verified'])->group(function () {
     Route::prefix('liked')->group(function () {
         Route::controller(\App\Http\Controllers\LikedController::class)->group(function () {
             Route::get('/', 'index')->name('personal.liked.index');
-            Route::get('/create', 'create')->name('personal.liked.create');
-            Route::post('/', 'store')->name('personal.liked.store');
-            Route::get('/{liked}', 'show')->name('personal.liked.show');
-            Route::get('/{liked}/edit', 'edit')->name('personal.liked.edit');
-            Route::patch('/{liked}', 'update')->name('personal.liked.update');
-            Route::delete('/{liked}', 'destroy')->name('personal.liked.destroy');
+            //Route::get('/create', 'create')->name('personal.liked.create');
+            //Route::post('/', 'store')->name('personal.liked.store');
+            //Route::get('/{liked}', 'show')->name('personal.liked.show');
+            Route::delete('/{post}', 'destroy')->name('personal.liked.destroy');
         });
     });
     Route::prefix('comments')->group(function () {
         Route::controller(\App\Http\Controllers\CommentController::class)->group(function () {
             Route::get('/', 'index')->name('personal.comment.index');
-            Route::get('/create', 'create')->name('personal.comment.create');
-            Route::post('/', 'store')->name('personal.comment.store');
-            Route::get('/{comment}', 'show')->name('personal.comment.show');
+            //Route::get('/create', 'create')->name('personal.comment.create');
+            //Route::post('/', 'store')->name('personal.comment.store');
+            //Route::get('/{comment}', 'show')->name('personal.comment.show');
             Route::get('/{comment}/edit', 'edit')->name('personal.comment.edit');
             Route::patch('/{comment}', 'update')->name('personal.comment.update');
             Route::delete('/{comment}', 'destroy')->name('personal.comment.destroy');

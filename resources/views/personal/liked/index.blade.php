@@ -26,16 +26,10 @@
             <div class="container-fluid">
                 <!-- Small boxes (Stat box) -->
                 <div class="row">
-                    <div class="col-2  mb-3">
-                        <a href="{{route('personal.liked.create')}}" class="btn btn-block btn-info btn-lg">Create</a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-6">
+                    <div class="col-4">
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">List of liked posts</h3>
-
                                 <div class="card-tools">
                                     <div class="input-group input-group-sm" style="width: 150px;">
                                         <input type="text" name="table_search" class="form-control float-right"
@@ -56,11 +50,30 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Name</th>
-                                        <th colspan="3" class="text-center">Actions</th>
+                                        <th colspan="2" class="text-center">Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    @foreach($posts as $post)
+                                        <tr>
+                                            <td>{{$post->id}}</td>
+                                            <td>{{$post->title}}</td>
+                                            <td><a href="{{route('admin.post.show', $post->id)}}"><i
+                                                        class="far fa-eye"></i></a></td>
+                                            <td>
+                                                <form action="{{route('personal.liked.destroy', $post->id)}}"
+                                                      method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="border-0 bg-transparent">
+                                                        <i class="fas fa-trash text-danger" role="button"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
 
+
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
