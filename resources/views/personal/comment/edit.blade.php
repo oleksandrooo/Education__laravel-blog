@@ -8,12 +8,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Editing category</h1>
+                        <h1 class="m-0">Editing comment</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Editing category {{$category->title}}</li>
+                            <li class="breadcrumb-item active">Editing comment {{$comment->title}}</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -27,14 +27,15 @@
                 <!-- Small boxes (Stat box) -->
                 <div class="row">
                     <div class="col-12">
-                        <form action="{{route('admin.category.update', $category->id)}}" method="post" class="col-6">
+                        <form action="{{route('personal.comment.update', $comment->id)}}" method="post" class="col-6">
                             @csrf
                             @method('PATCH')
                             <div class="form-group">
-                                <label>Name</label>
-                                <input class="form-control" name="title" type="text" value="{{$category->title}}">
+                                <label>Editing comment</label>
+                                <textarea class="form-control" rows="3" name="message"
+                                          placeholder="Enter ...">{{$comment->message}}</textarea>
                             </div>
-                            @error('title')
+                            @error('message')
                             <div class="text-danger">You need fill this field</div>
                             @enderror
                             <div>
