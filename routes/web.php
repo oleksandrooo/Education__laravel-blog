@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::controller(\App\Http\Controllers\HomeController::class)->group(function () {
-    Route::get('/', 'index');
+Route::controller(\App\Http\Controllers\MainController::class)->group(function () {
+    Route::get('/', 'index')->name('main.index');
 });
 Route::prefix('admin')->middleware(['auth', 'admin', 'verified'])->group(function () {
     Route::controller(\App\Http\Controllers\AdminController::class)->group(function () {
@@ -64,8 +64,6 @@ Route::prefix('admin')->middleware(['auth', 'admin', 'verified'])->group(functio
         });
     });
 });
-
-
 Route::prefix('personal')->middleware(['auth', 'verified'])->group(function () {
     Route::controller(\App\Http\Controllers\PersonalController::class)->group(function () {
         Route::get('/', 'index')->name('personal.main.index');
@@ -92,8 +90,4 @@ Route::prefix('personal')->middleware(['auth', 'verified'])->group(function () {
     });
 });
 
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Auth::routes(['verify' => true]);
-
