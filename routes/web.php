@@ -12,15 +12,27 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::controller(\App\Http\Controllers\MainController::class)->group(function () {
+Route::controller(\App\Http\Controllers\Main\MainController::class)->group(function () {
     Route::get('/', 'index')->name('main.index');
 });
+Route::prefix('post')->group(function () {
+    Route::controller(\App\Http\Controllers\Post\PostController::class)->group(function () {
+        Route::get('/', 'index')->name('post.index');
+        Route::get('/{post}', 'show')->name('post.show');
+    });
+    Route::prefix('{post}/comments')->group(function () {
+        Route::controller(\App\Http\Controllers\Post\CommentController::class)->group(function () {
+            Route::post('/', 'store')->name('post.comment.store');
+        });
+    });
+});
+
 Route::prefix('admin')->middleware(['auth', 'admin', 'verified'])->group(function () {
-    Route::controller(\App\Http\Controllers\AdminController::class)->group(function () {
+    Route::controller(\App\Http\Controllers\Admin\AdminController::class)->group(function () {
         Route::get('/', 'index')->name('admin.main.index');
     });
     Route::prefix('categories')->group(function () {
-        Route::controller(\App\Http\Controllers\CategoryController::class)->group(function () {
+        Route::controller(\App\Http\Controllers\Admin\CategoryController::class)->group(function () {
             Route::get('/', 'index')->name('admin.category.index');
             Route::get('/create', 'create')->name('admin.category.create');
             Route::post('/', 'store')->name('admin.category.store');
@@ -31,7 +43,7 @@ Route::prefix('admin')->middleware(['auth', 'admin', 'verified'])->group(functio
         });
     });
     Route::prefix('tags')->group(function () {
-        Route::controller(\App\Http\Controllers\TagController::class)->group(function () {
+        Route::controller(\App\Http\Controllers\Admin\TagController::class)->group(function () {
             Route::get('/', 'index')->name('admin.tag.index');
             Route::get('/create', 'create')->name('admin.tag.create');
             Route::post('/', 'store')->name('admin.tag.store');
@@ -42,7 +54,7 @@ Route::prefix('admin')->middleware(['auth', 'admin', 'verified'])->group(functio
         });
     });
     Route::prefix('posts')->group(function () {
-        Route::controller(\App\Http\Controllers\PostController::class)->group(function () {
+        Route::controller(\App\Http\Controllers\Admin\PostController::class)->group(function () {
             Route::get('/', 'index')->name('admin.post.index');
             Route::get('/create', 'create')->name('admin.post.create');
             Route::post('/', 'store')->name('admin.post.store');
@@ -53,7 +65,7 @@ Route::prefix('admin')->middleware(['auth', 'admin', 'verified'])->group(functio
         });
     });
     Route::prefix('users')->group(function () {
-        Route::controller(\App\Http\Controllers\UserController::class)->group(function () {
+        Route::controller(\App\Http\Controllers\Admin\UserController::class)->group(function () {
             Route::get('/', 'index')->name('admin.user.index');
             Route::get('/create', 'create')->name('admin.user.create');
             Route::post('/', 'store')->name('admin.user.store');
@@ -65,24 +77,19 @@ Route::prefix('admin')->middleware(['auth', 'admin', 'verified'])->group(functio
     });
 });
 Route::prefix('personal')->middleware(['auth', 'verified'])->group(function () {
-    Route::controller(\App\Http\Controllers\PersonalController::class)->group(function () {
+    Route::controller(\App\Http\Controllers\Personal\PersonalController::class)->group(function () {
         Route::get('/', 'index')->name('personal.main.index');
     });
     Route::prefix('liked')->group(function () {
-        Route::controller(\App\Http\Controllers\LikedController::class)->group(function () {
+        Route::controller(\App\Http\Controllers\Personal\LikedController::class)->group(function () {
             Route::get('/', 'index')->name('personal.liked.index');
-            //Route::get('/create', 'create')->name('personal.liked.create');
-            //Route::post('/', 'store')->name('personal.liked.store');
-            //Route::get('/{liked}', 'show')->name('personal.liked.show');
+
             Route::delete('/{post}', 'destroy')->name('personal.liked.destroy');
         });
     });
     Route::prefix('comments')->group(function () {
-        Route::controller(\App\Http\Controllers\CommentController::class)->group(function () {
+        Route::controller(\App\Http\Controllers\Personal\CommentController::class)->group(function () {
             Route::get('/', 'index')->name('personal.comment.index');
-            //Route::get('/create', 'create')->name('personal.comment.create');
-            //Route::post('/', 'store')->name('personal.comment.store');
-            //Route::get('/{comment}', 'show')->name('personal.comment.show');
             Route::get('/{comment}/edit', 'edit')->name('personal.comment.edit');
             Route::patch('/{comment}', 'update')->name('personal.comment.update');
             Route::delete('/{comment}', 'destroy')->name('personal.comment.destroy');

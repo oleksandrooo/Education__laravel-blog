@@ -12,7 +12,7 @@
                                 <img src="{{asset($post->preview_image)}}" alt="blog post">
                             </div>
                             <p class="blog-post-category">{{$post->category->title}}</p>
-                            <a href="#!" class="blog-post-permalink">
+                            <a href="{{  route('post.show', $post->id) }}" class="blog-post-permalink">
                                 <h6 class="blog-post-title">{{$post->title}}</h6>
                             </a>
                         </div>
@@ -34,7 +34,7 @@
                                         <img src="{{asset($randomPost->preview_image)}}" alt="blog post">
                                     </div>
                                     <p class="blog-post-category">{{  $randomPost->category->title  }}</p>
-                                    <a href="#!" class="blog-post-permalink">
+                                    <a href="{{  route('post.show', $randomPost->id) }}" class="blog-post-permalink">
                                         <h6 class="blog-post-title">{{  $randomPost->title  }}</h6>
                                     </a>
                                 </div>
@@ -49,7 +49,7 @@
                         <ul class="post-list">
                             @foreach($likedPosts as $likedPost)
                                 <li class="post">
-                                    <a href="#!" class="post-permalink media">
+                                    <a href="{{  route('post.show', $likedPost->id) }}" class="post-permalink media">
                                         <img src="{{asset($likedPost->preview_image)}}" alt="blog post">
                                         <div class="media-body">
                                             <h6 class="post-title">{{  $likedPost->title  }}</h6>
@@ -63,9 +63,9 @@
                         <h5 class="widget-title">Categories</h5>
                         <img src="{{asset('assets/images/blog_widget_categories.jpg')}}" alt="categories" class="w-100">
                     </div>
+                </div>
             </div>
         </div>
-    </div>
 
-</main>
+    </main>
 @endsection

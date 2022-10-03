@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Tag\StoreRequest;
 use App\Http\Requests\Admin\Tag\UpdateRequest;
 use App\Models\Tag;
@@ -23,6 +24,7 @@ class TagController extends Controller
     {
         return view('admin.tags.create');
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -51,6 +53,7 @@ class TagController extends Controller
     {
         return view('admin.tags.edit', compact('tag'));
     }
+
     /**
      * Update the specified resource in storage.
      *
