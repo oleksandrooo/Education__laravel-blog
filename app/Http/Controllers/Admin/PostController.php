@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Post\StoreRequest;
 use App\Http\Requests\Admin\Post\UpdateRequest;
 use App\Models\Category;
@@ -35,6 +36,7 @@ class PostController extends Controller
         $tags = Tag::all();
         return view('admin.posts.create', compact('categories', 'tags'));
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -65,6 +67,7 @@ class PostController extends Controller
         $tags = Tag::all();
         return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
+
     /**
      * Update the specified resource in storage.
      *
