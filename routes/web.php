@@ -25,6 +25,11 @@ Route::prefix('post')->group(function () {
             Route::post('/', 'store')->name('post.comment.store');
         });
     });
+    Route::prefix('{post}/likes')->group(function () {
+        Route::controller(\App\Http\Controllers\Post\LikeController::class)->group(function () {
+            Route::post('/', 'store')->name('post.like.store');
+        });
+    });
 });
 
 Route::prefix('admin')->middleware(['auth', 'admin', 'verified'])->group(function () {
